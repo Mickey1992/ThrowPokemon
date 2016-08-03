@@ -1,4 +1,4 @@
-Attribute VB_Name = "Ä£¿é1"
+ï»¿Attribute VB_Name = "æ¨¡å—1"
 Public Const MIN_CP As Integer = 500
 Public Const MIN_IVPERF As Integer = 60
 
@@ -18,7 +18,7 @@ Sub getDeleteList()
     delete_sheet.Activate
 End Sub
 
-'»ñÈ¡µ±Ç°³ÖÓĞµÄËùÓĞpokemonµÄID
+'è·å–å½“å‰æŒæœ‰çš„æ‰€æœ‰pokemonçš„ID
 Function getPokemonId(from_sheet As Variant, to_sheet As Variant)
     'Copy All Pokemon ID
     last_row = from_sheet.Cells(Rows.Count, 1).End(xlUp).Row
@@ -28,13 +28,13 @@ Function getPokemonId(from_sheet As Variant, to_sheet As Variant)
     to_sheet.Range("A:A").RemoveDuplicates Columns:=Array(1), Header:=xlYes
 End Function
 
-'¼ÆËãÖ¸¶¨sheetÄÚÒ»ÖÖpokemonµÄ³ÖÓĞ¸öÊı
+'è®¡ç®—æŒ‡å®šsheetå†…ä¸€ç§pokemonçš„æŒæœ‰ä¸ªæ•°
 Function countPokemon(count_sheet As Variant, pokemon_id As Integer)
     result = Application.WorksheetFunction.CountIf(count_sheet.[A:A], pokemon_id)
     countPokemon = result
 End Function
 
-'¼ÆËã¸÷ÖÖpokemonµÄ³ÖÓĞ×ÜÊıÒÔ¼°(CP<=500,IVPerf<=60%)µÄÊıÁ¿
+'è®¡ç®—å„ç§pokemonçš„æŒæœ‰æ€»æ•°ä»¥åŠ(CP<=500,IVPerf<=60%)çš„æ•°é‡
 Function countAllPokemon(count_sheet As Variant, _
                          all_pokemon_sheet As Variant, _
                          to_delete_sheet As Variant)
@@ -44,8 +44,8 @@ Function countAllPokemon(count_sheet As Variant, _
         max_row = Cells(Rows.Count, 1).End(xlUp).Row
         
         'Set Header
-        Cells(1, 2).Value = "pokemon×ÜÊı"
-        Cells(1, 3).Value = "(CP<=500,IVPerf<=60%)pokemon×ÜÊı"
+        Cells(1, 2).Value = "pokemonæ€»æ•°"
+        Cells(1, 3).Value = "(CP<=500,IVPerf<=60%)pokemonæ€»æ•°"
         
         'Count
         For i = 2 To max_row
@@ -56,7 +56,7 @@ Function countAllPokemon(count_sheet As Variant, _
 End Function
 
 
-'³é³öCP<=500,IVPerf<=60%µÄpokemon
+'æŠ½å‡ºCP<=500,IVPerf<=60%çš„pokemon
 Function getUselessPokemon(ByRef delete_sheet As Variant)
     Set delete_sheet = Worksheets.Add(After:=Worksheets("Sheet"))
     delete_sheet.Name = "pokemons_tobe_thrown"
@@ -76,7 +76,7 @@ Function getUselessPokemon(ByRef delete_sheet As Variant)
         'Copy Pokemon Data
         insert_row = 2
         For i = 2 To max_row
-            If ((Cells(i, 6).Value <= MIN_CP) And (Cells(i, 12).Value <= MIN_IVPERF)) Then
+            If ((Cells(i, 9).Value <= MIN_CP) And (Cells(i, 12).Value <= MIN_IVPERF)) Then
                 .Range(Cells(i, 1), Cells(i, max_column)).Copy delete_sheet.Cells(insert_row, 1)
                 insert_row = insert_row + 1
             End If
@@ -90,7 +90,7 @@ Function getUselessPokemon(ByRef delete_sheet As Variant)
     End With
 End Function
 
-'Èç¹ûÄ³Ò»ÖÖpokemon¶¼ÔÚdelete listÀï£¬Ôò½«ÍêÃÀ¶È×î¸ßµÄ´ÓlistÖÖÒÆ³ı
+'å¦‚æœæŸä¸€ç§pokemonéƒ½åœ¨delete listé‡Œï¼Œåˆ™å°†å®Œç¾åº¦æœ€é«˜çš„ä»listç§ç§»é™¤
 Function savePokemon(to_delete_sheet As Variant, count_sheet As Variant)
     Dim d_max_row As Integer
     d_max_row = to_delete_sheet.Cells(Rows.Count, 1).End(xlUp).Row
